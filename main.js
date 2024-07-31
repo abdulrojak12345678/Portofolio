@@ -100,18 +100,18 @@ export async function ambilabsensi(docId) {
       id: dok.id,
       nama: dok.data().nama,
       alamat: dok.data().alamat,
-      notlpn: dok.data().notlpn,
+      notlpon: dok.data().notlpon,
     });
   });
   
   return hasil;
 }
-export async function  tambahPembeli(nama, alamat, notlpn) {
+export async function  tambahPembeli(nama, alamat, notlpon) {
   try {
     const dokRef = await addDoc(collection(db, 'pembeli'), {
       nama: nama,
       alamat: alamat,
-      notlpn: notlpn
+      notlpon: notlpon
     });
     console.log('Berhasil menambah produk ' + dokRef.id);
   } catch (e) {
@@ -121,11 +121,11 @@ export async function  tambahPembeli(nama, alamat, notlpn) {
       export async function hapusPembeli(docId) {
   await deleteDoc(doc(db, "pembeli", docId));
 }
-export async function ubahPembeli(docId, nama, alamat, notlpn) {
+export async function ubahPembeli(docId, nama, alamat, notlpon) {
   await updateDoc(doc(db, "pembeli", docId), {
     nama: nama,
     alamat: alamat,
-    notlpn: notlpn
+    notlpon: notlpon
   });
 }
 export async function ambilPembeli(docId) {
