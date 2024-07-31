@@ -47,9 +47,6 @@ export async function ambilDaftarabsensi() {
   
   return hasil;
 }
-export function formatangka(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
 
 export async function tambahAbsensi(tanggal, nis, nama, alamat, noTlpon, kelas, keterangan) {
   try {
@@ -87,6 +84,152 @@ export async function ubahAbsensi(docId, tanggal, nis, nama, alamat, noTlpon, ke
 
 export async function ambilabsensi(docId) {
   const docRef = await doc(db, "absensi", docId);
+  const docSnap = await getDoc(docRef);
+
+  return await docSnap.data();
+}
+ 
+ export async function ambilDaftarPembeli() {
+  const refDokumen = collection(db, "pembeli");
+  const kueri = query(refDokumen, orderBy("nama"));
+  const cuplikanKueri = await getDocs(kueri);
+
+  let hasil = [];
+  cuplikanKueri.forEach((dok) => {
+    hasil.push({
+      id: dok.id,
+      nama: dok.data().nama,
+      alamat: dok.data().alamat,
+      notlpn: dok.data().notlpn,
+    });
+  });
+  
+  return hasil;
+}
+export async function  tambahPembeli(nama, alamat, notlpn) {
+  try {
+    const dokRef = await addDoc(collection(db, 'pembeli'), {
+      nama: nama,
+      alamat: alamat,
+      notlpn: notlpn
+    });
+    console.log('Berhasil menambah produk ' + dokRef.id);
+  } catch (e) {
+    console.log('Gagal menambah produk' + e);
+  }
+   }
+      export async function hapusPembeli(docId) {
+  await deleteDoc(doc(db, "pembeli", docId));
+}
+export async function ubahPembeli(docId, nama, alamat, notlpn) {
+  await updateDoc(doc(db, "pembeli", docId), {
+    nama: nama,
+    alamat: alamat,
+    notlpn: notlpn
+  });
+}
+export async function ambilPembeli(docId) {
+  const docRef = await doc(db, "pembeli", docId);
+  const docSnap = await getDoc(docRef);
+
+  return await docSnap.data();
+}
+
+export async function ambilDaftarPenjual() {
+  const refDokumen = collection(db, "Penjual-2");
+  const kueri = query(refDokumen, orderBy("nama"));
+  const cuplikanKueri = await getDocs(kueri);
+
+  let hasil = [];
+  cuplikanKueri.forEach((dok) => {
+    hasil.push({
+      id: dok.id,
+      nama: dok.data().nama,
+      alamat: dok.data().alamat,
+      gmail: dok.data().gmail,
+      noTlpn: dok.data().noTlpn,
+    });
+  });
+
+
+
+  return hasil;
+}
+export async function tambahPenjual(nama, alamat, gmail, noTlpn) {
+  try {
+    const dokRef = await addDoc(collection(db, 'Penjual-2'), {
+      nama: nama,
+      alamat: alamat,
+      gmail: gmail,
+      noTlpn: noTlpn
+    });
+    console.log('berhasil menembah produk ' + dokRef.id);
+  } catch (e) {
+    console.log('gagal menambah produk ' + e);
+  }
+}
+export async function hapusPenjual(docId) {
+  await deleteDoc(doc(db, "Penjual-2", docId));
+}
+export async function ubahPenjual(docId, nama, alamat, gmail, noTlpn) {
+  await updateDoc(doc(db, "Penjual-2", docId), {
+    nama: nama,
+    alamat: alamat,
+    gmail: gmail,
+    noTlpn: noTlpn
+  });
+}
+  export async function ambilPenjual(docId) {
+  const docRef = await doc(db, "Penjual-2", docId);
+  const docSnap = await getDoc(docRef);
+
+  return await docSnap.data();
+}
+
+export async function ambilDaftarProduk() {
+  const refDokumen = collection(db,"produk");
+  const kuery = query(refDokumen,orderBy("nama"));
+  const cuplikankuery = await getDocs(kuery);
+  
+  let hasil = [];
+  cuplikankuery.forEach((dok) => {
+      hasil.push({ 
+     id:dok.id, 
+      nama: dok.data().nama,
+      harga:dok.data().harga,
+      stok: dok.data().stok,
+      });
+  });
+  
+  return hasil;
+}
+export function formatangka(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+export async function tambahproduk(nama, harga, stok) {
+  try {
+    const dokRef = await addDoc(collection(db,'produk'),{
+   nama: nama,
+   harga: harga,
+   stok: stok
+    });
+    console.log('berhasil menambah produk'+ dok )
+  } catch (e) {
+  console.log('Gagal menambah daftar produk' + e);
+  }
+}
+export async function hapusproduk(docId) {
+  await deleteDoc(doc(db,"produk",docId));
+}
+export async function ubahproduk(docId, nama, harga, stok) {
+  await updateDoc(doc(db, "produk", docId), {
+    nama: nama,
+    harga: harga, 
+    stok: stok
+  });
+}
+export async function ambilproduk(docId) {
+  const docRef = await doc(db, "produk", docId);
   const docSnap = await getDoc(docRef);
 
   return await docSnap.data();
