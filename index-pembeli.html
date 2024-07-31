@@ -12,6 +12,14 @@
 </head>
 
 <body>
+  <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    tambah
+  </button>
+  <ul class="dropdown-menu dropdown-menu-dark">
+    <li><a class="dropdown-item active" href="index.html">kembali ke beranda</a></li>
+  </ul>
+</div
   <h1>Daftar pembeli</h1>
 
   <table class="table" id="daftar-pembeli">
@@ -30,10 +38,10 @@
 
   <img src="loader.gif" style="width: 1em; display: block" id="loader">
 
-  <a href=" form data siswa.html">Tambah data pembeli</a>
+  <a href=" form Tambah data pembeli.html">Tambah data pembeli</a>
 
   <script type="module">
-    import { ambilDaftarPembeli, formatAngka, hapusPembeli } from './main.js';
+    import { ambilDaftarPembeli, formatangka, hapusPembeli } from './main.js';
 
     $(document).ready(async function() {
       let elemenDaftar = $("#daftar-pembeli > tbody");
