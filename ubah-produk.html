@@ -29,7 +29,7 @@
     <img src="loader.gif" style="width: 1em; display: none" id="loader">
   </form>
 
-  <a class="mt-1" href="index.html">Lihat Daftar Siswa</a>
+  <a class="mt-1" href="index-penjual.html">Lihat Daftar Siswa</a>
 
   <script type="module">
     import { ambilproduk, ubahproduk } from './main.js';
@@ -52,7 +52,7 @@
     tombolUbah.addEventListener('click', async function(el) {
       el.preventDefault();
       await ubahproduk(docId, elemenNamaProduk.value, elemenHarga.value, elemenStok.value);
-      window.location.href = 'index.html';
+      window.location.href = 'index-penjual.html';
     });
   </script>
 </body>

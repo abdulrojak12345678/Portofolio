@@ -36,7 +36,7 @@
     <button type="submit" class="btn btn-primary" id="tombol-tambah">Simpan</button>
   </form>
 <div class="d-flex justify-content-center">
-<button onclick="location.href='index.html'" style="background-color: blue; color: white; border-radius: 10px;">Lihat Daftar penjual</button>
+<button onclick="location.href='index-penjual.html'" style="background-color: blue; color: white; border-radius: 10px;">Lihat Daftar penjual</button>
 </div>
 
   <script type="module">
@@ -51,7 +51,7 @@
     tombolTambah.addEventListener('click', async function(e) {
       e.preventDefault();
       await tambahPenjual(elemenNamaPenjual.value, elemenAlamat.value, elemenGmail.value, elemenNoTlpn.value);
-      window.location.href = 'index.html'
+      window.location.href = 'index-penjual.html'
     })
   </script>
 
