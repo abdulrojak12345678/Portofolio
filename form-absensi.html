@@ -21,13 +21,9 @@
   </button>
   <ul class="dropdown-menu dropdown-menu-dark">
     <li><a class="dropdown-item active" href="index-absensi.html">kembali ke beranda</a></li>
+        <li><a class="dropdown-item active" href="index-absensi.html">lihat daftar absensi</a></li>
   </ul>
 </div>
-  
-  
-  
-  
-  
   
   <h1>Form absensi</h1>
 
@@ -64,7 +60,6 @@
     <img src="loader.gif" style="width: 1.8em; display: none" id="loader">
   </form>
 
-  <a href="index.html">lihat daftar absensi</a>
 
   <script type="module">
     import { tambahAbsensi } from './main.js';
@@ -83,7 +78,7 @@
             tombolTambah.addEventListener('click', async function(e) {
               e.preventDefault();
               await tambahAbsensi(elemenTanggal.value, elemenNis.value, elemenNama.value, elemenAlamat.value, elemenNoTlpn.value, elemenKelas.value, elemenketerangan.value);
-              window.location.href = 'index.html';
+              window.location.href = 'index-absensi.html';
             });
   </script>
 

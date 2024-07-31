@@ -10,11 +10,21 @@
 </head>
 
 <body class="m-4">
-  <h1>Ubah Data </h1>
+  
+   <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    tambah
+  </button>
+  <ul class="dropdown-menu dropdown-menu-dark">
+    <li><a class="dropdown-item active" href="index.html">kembali ke beranda</a></li>
+  </ul>
+</div
+
+  <h1>Ubah Data produk </h1>
 
   <form class="mb-3">
     <div class="mb-3">
-      <label class="form-label">Nama Pembeli</label>
+      <label class="form-label">Nama produk</label>
       <input type="text" class="form-control" id="input-nama">
     </div>
     <div class="mb-3">
@@ -29,7 +39,6 @@
     <img src="loader.gif" style="width: 1em; display: none" id="loader">
   </form>
 
-  <a class="mt-1" href="index-penjual.html">Lihat Daftar Siswa</a>
 
   <script type="module">
     import { ambilproduk, ubahproduk } from './main.js';
@@ -52,7 +61,7 @@
     tombolUbah.addEventListener('click', async function(el) {
       el.preventDefault();
       await ubahproduk(docId, elemenNamaProduk.value, elemenHarga.value, elemenStok.value);
-      window.location.href = 'index-penjual.html';
+      window.location.href = 'index.html';
     });
   </script>
 </body>
