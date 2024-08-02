@@ -10,6 +10,16 @@
 </head>
 
 <body class="m-4">
+  
+      <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    tambah
+  </button>
+  <ul class="dropdown-menu dropdown-menu-dark">
+        <li><a class="dropdown-item active" href="index-pembeli.html">lihat pembeli</a></li>
+  </ul>
+</div>
+  
   <h1>Ubah Data </h1>
 
   <form class="mb-3">
@@ -28,8 +38,6 @@
     <button type="submit" class="btn btn-primary" id="tombol-ubah">ubah</button>
      <img src="loader.gif" style="width: 1em; display: none" id="loader">
   </form>
-
-  <a class="mt-1" href="index-pembeli.html">Lihat Daftar pembli</a>
 
   <script type="module">
     import { ambilPembeli, ubahPembeli } from './main.js';
@@ -55,6 +63,15 @@
       window.location.href = 'index-pembeli.html';
     });
   </script>
+  
+  
+    <footer class="py-3 bg-dark-subtle mt-auto">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+     
+    </ul>
+    <p class="text-center text-body-secondary">&copy;  smk plus insan cemerlang 2024</p>
+  </footer>
+  
 </body>
 
 </html>
