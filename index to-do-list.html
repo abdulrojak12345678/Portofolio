@@ -62,7 +62,8 @@
        menu
      </button>
      <ul class="dropdown-menu dropdown-menu-dark">
-       <li><a class="dropdown-item active" href="tambah.html">Tambah tugas</a></li> <!-- Link ke halaman tambah -->
+       <li><a class="dropdown-item active" href="tambah to-do-list.html">Tambah tugas</a></li> 
+       <li><a class="dropdown-item active" href="index.html">beranda</a></li><!-- Link ke halaman tambah -->
    </div>
    <!-- Tabel daftar tugas -->
    <table class="table" id="daftar-tugas">
@@ -119,7 +120,7 @@
        });
        // Event handler tombol ubah
        $('.ubah').click(function() {
-         window.location.replace('ubah.html?docId=' + $(this).attr('data')); // Arahkan ke halaman ubah dengan ID
+         window.location.replace('ubah to-do-list.html?docId=' + $(this).attr('data')); // Arahkan ke halaman ubah dengan ID
        });
        // Ubah status// Event handler ubah status tugas
        $('.btn-status').click(async function() {
