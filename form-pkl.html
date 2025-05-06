@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>form tambah barang</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</head>
+
+<body class="m-3">
+  
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        body {
+          background-color: black;
+        }
+        
+        h1 {
+          color:white;
+        }
+        
+        label {
+          color: white;
+        }
+    </style>
+  
+  <h1>Form tambah barang</h1>
+     <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        menu 
+      </button>
+      <ul class="dropdown-menu dropdown-menu-dark">
+        <li><a class="dropdown-item active" href="index.html">back to home </a></a></li>
+    </div>
+    
+
+  <form class="mb-3">
+    <div class="mb-3">
+      <label class="form-label">tanggal Masuk</label>
+      <input type="date" class="form-control" id="elementangalmasuk">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">nama Barang</label>
+      <input type="text" class="form-control" id="input-nama Barang">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">jumlah Barang</label>
+      <input type="text" class="form-control" id="input-jumlah Barang">
+    </div>
+    <button type="submit" class="btn btn-primary" id="tombol-tambah">Simpan</button>
+    
+  </form>
+
+  <script type="module">
+    import { tambahBarang } from './main.js';
+  
+    
+    let tombolTambah = document.getElementById('tombol-tambah');
+    let elementanggalMasuk = document.getElementById('elementangalmasuk');
+    let elemennamaBarang = document.getElementById('input-nama Barang');
+    let elemenjumlahBarang = document.getElementById('input-jumlah Barang');
+    
+    tombolTambah.addEventListener('click', async function(e) {
+            e.preventDefault();
+      let dateValue = new Date(elementangalmasuk.value);
+      let formattedDate = `${dateValue.getDate().toString().padStart(2, '0')}/${(dateValue.getMonth() + 1).toString().padStart(2, '0')}/${dateValue.getFullYear()}`;
+   
+
+      await tambahBarang(formattedDate, elemennamaBarang.value, elemenjumlahBarang.value );
+      window.location.href = 'index.html'
+    })
+
+  </script>
+<footer class="py-3 bg-dark-subtle mt-auto">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+
+      </ul>
+      <p class="text-center text-body-secondary">&copy; SMK PLUS INSAN CEMERLANG 2024
+        # PT.KAF GROUP INDONESIA
+        # KAF FRAID CHICKEN </p>
+    </footer>
+
+</body>
+
+</html>
