@@ -14,21 +14,26 @@
 
 <body class="m-3">
   <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    tambah
-  </button>
-  <ul class="dropdown-menu dropdown-menu-dark">
-        <li><a class="dropdown-item active" href="form-produk.html">tambah produk</a></a></li>
-    <li><a class="dropdown-item active" href="index-pembeli.html">pembeli</a></li>
-    <li><a class="dropdown-item active" href="index-penjual.html">penjual</a></li>
-    <li><a class="dropdown-item active" href="index-absensi.html">absensi</a></li>
-    <li><a class="dropdown-item active" href="index-mapel.html">jadwal mapel</a></li>
-     <li><a class="dropdown-item active" href="index to-do-list.html">to-do-list</a></li>
-       <li><a class="dropdown-item active" href="index pkl.html">tugas pkl</a></li>
-    
-  </ul>
-</div
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      tambah
+    </button>
+    <ul class="dropdown-menu dropdown-menu-dark">
+      <li><a class="dropdown-item active" href="form-produk.html">tambah produk</a></li>
+      <li><a class="dropdown-item active" href="index-pembeli.html">pembeli</a></li>
+      <li><a class="dropdown-item active" href="index-penjual.html">penjual</a></li>
+      <li><a class="dropdown-item active" href="index-absensi.html">absensi</a></li>
+      <li><a class="dropdown-item active" href="index-mapel.html">jadwal mapel</a></li>
+      <li><a class="dropdown-item active" href="index to-do-list.html">to-do-list</a></li>
+      <li><a class="dropdown-item active" href="index pkl.html">tugas pkl</a></li>
+    </ul>
+  </div>
+
   <h1>Daftar Produk</h1>
+
+  <!-- Input pencarian -->
+  <div class="mb-3">
+    <input type="text" class="form-control" id="pencarian-produk" placeholder="Cari produk...">
+  </div>
 
   <table class="table" id="daftar-produk">
     <thead>
@@ -40,65 +45,64 @@
         <th scope="col">aksi</th>
       </tr>
     </thead>
-    <tbody>
-
-    </tbody>
+    <tbody></tbody>
   </table>
   <img src="loader.gif" style="width: 1.8em; display: block" id="loader">
 
   <script type="module">
     import { ambilDaftarProduk, formatangka, hapusproduk } from './main.js';
 
-    $(document).ready(async function() {
+    $(document).ready(async function () {
       let elementdaftar = $("#daftar-produk > tbody")
       let daftarproduk = await ambilDaftarProduk();
-      let nomor = 1;
-
-      daftarproduk.forEach((data) => {
-        elementdaftar.append(
-          '<tr>' +
-          '<th>' + nomor + '</th>' +
-          '<td>' + data.nama + '</td>' +
-          '<td>' + formatangka(data.harga) + '</td>' +
-          '<td>' + data.stok + '</td>' +
-          '<td>' + ' <a href="#" class="me-2 link-ubah"  data="' +
-          data.id +
-          '">ubah</a> ' + '<button class="btn btn-danger tombol-hapus" data ="' + data.id + '">hapus</button>' +
-          '<img src="loader.gif" style="width: 1em; display: none" id="' + data.id + '">' +
-          '</td>' +
-          '</tr>'
-        );
-        nomor = nomor + 1;
-
-      });
       $('#loader').hide();
 
-      $('.tombol-hapus').click(async function() {
-        $(this).attr('disebled', 'disebled');
-        $('#' + $(this).attr('data')).show();
-        await hapusProduk($(this).attr('data'));
-        location.reload();
-      });
-   $('.link-ubah').click(async function() {
-        window.location.replace('ubah-produk.html?docId=' + $(this).attr('data'));
-      })
+      function tampilkanProduk(dataProduk) {
+        elementdaftar.html('');
+        let nomor = 1;
+        dataProduk.forEach((data) => {
+          elementdaftar.append(
+            '<tr>' +
+            '<th>' + nomor + '</th>' +
+            '<td>' + data.nama + '</td>' +
+            '<td>' + formatangka(data.harga) + '</td>' +
+            '<td>' + data.stok + '</td>' +
+            '<td>' +
+            ' <a href="#" class="me-2 link-ubah" data="' + data.id + '">ubah</a> ' +
+            '<button class="btn btn-danger tombol-hapus" data="' + data.id + '">hapus</button>' +
+            '<img src="loader.gif" style="width: 1em; display: none" id="' + data.id + '">' +
+            '</td>' +
+            '</tr>'
+          );
+          nomor++;
+        });
 
+        $('.tombol-hapus').click(async function () {
+          $(this).attr('disabled', 'disabled');
+          $('#' + $(this).attr('data')).show();
+          await hapusproduk($(this).attr('data'));
+          location.reload();
+        });
+
+        $('.link-ubah').click(function () {
+          window.location.replace('ubah-produk.html?docId=' + $(this).attr('data'));
+        });
+      }
+
+      tampilkanProduk(daftarproduk);
+
+      $('#pencarian-produk').on('keyup', function () {
+        let keyword = $(this).val().toLowerCase();
+        let hasilFilter = daftarproduk.filter(p => p.nama.toLowerCase().includes(keyword));
+        tampilkanProduk(hasilFilter);
+      });
     });
   </script>
-  
-    <footer class="py-3 bg-dark-subtle mt-auto">
-    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-     
-    </ul>
+
+  <footer class="py-3 bg-dark-subtle mt-auto">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3"></ul>
     <p class="text-center text-body-secondary">&copy; smk plus insan cemerlang 2024</p>
   </footer>
-  
-  
-  
-  
-  
-  
-  
 </body>
 
 </html>
