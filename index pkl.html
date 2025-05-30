@@ -1,174 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stok PKL - KAF Group Indonesia</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script type="module">
+    import { ambilDaftarBarang, ubahBarang, hapusBarang } from './main.js';
 
-  <title>PKL</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    $(document).ready(async function () {
+      let elemenDaftar = $("#barang > tbody");
+      let daftarBarang = await ambilDaftarBarang();
+      let nomor = 1;
 
-  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+      daftarBarang.forEach((data) => {
+        elemenDaftar.append(
+          '<tr>' +
+          '<th>' + nomor + '</th>' +
+          '<td>' + data.tanggalMasuk + '</td>' +
+          '<td>' + data.namaBarang + '</td>' +
+          '<td>' + data.jumlahBarang + '</td>' +
+          '<td>' +
+          ' <a href="#" class="btn btn-warning btn-sm link-ubah" data="' + data.id + '">Ubah</a> ' +
+          ' <button class="btn btn-danger btn-sm tombol-hapus" data="' + data.id + '">Hapus</button>' +
+          '</td>' +
+          '</tr>'
+        );
+        nomor++;
+      });
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-   <link rel="stylesheet" href="to-do-list.css">
-</head>
+      $('.tombol-hapus').click(async function () {
+        await hapusBarang($(this).attr('data'));
+        location.reload();
+      });
 
+      $('.link-ubah').click(function () {
+        window.location.replace('ubah-pkl.html?docId=' + $(this).attr('data'));
+      });
 
-<body>
+      $('#loader').hide();
+    });
+  </script>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
+      background-color: #f8f9fa;
     }
-
-    header {
-      background-color: ;
-      padding: 0px;
-      text-align: center;
-    }
-
-    img {
-      max-width: 80%;
-      height: auto;
-
-    }
-
-    body {
-      background-color: ;
-    }
-
     h1 {
-      color: black;
+      margin-bottom: 10px;
+    }
+    table {
+      background-color: white;
+    }
+    header img {
+      width: 80%;
+      max-height: 400px;
+      object-fit: cover;
     }
   </style>
-  <header>
-    <img src="gambar.jpg" alt="Gambar Header" />
+</head>
+
+<body class="m-3">
+  <header class="text-center mb-4">
+    <img src="gambar.jpg" alt="Header Gambar">
   </header>
 
-  <body class="m-3">
+  <div class="container">
+    <h1 class="text-center">Stok Bahan Baku KAF Group Indonesia</h1>
 
-    <h1>Stok Bahan Baku Kaf Group Indonesia </h1>
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        menu
-      </button>
-      <ul class="dropdown-menu dropdown-menu-dark">
-        <li><a class="dropdown-item active" href="form-pkl.html">tambah data</a></a></li>
-          <li><a class="dropdown-item active" href="index.html">BERANDA</a></li>
+    <div class="mb-3 text-end">
+      <a href="form-pkl.html" class="btn btn-primary">+ Tambah Data</a>
+      <a href="UTAMA.html" class="btn btn-secondary">Beranda</a>
     </div>
 
-
-
-    <table class="table  table-striped" id="barang">
-      <thead>
-        <tr class="table-secondary"">
-           
-          <th scope=" <table class="table  table-striped" id="barang">
-      <thead>
-        <tr class="table-secondary">
-           
-          <th scope="col">#</th>
-          <th scope="col">tanggal masuk</th>
-          <th scope="col">nama barang</th>
-          <th scope="col">jumlah barang</th>
-          <th scope="col">tekan</th>
-
-
+    <table class="table table-bordered table-striped" id="barang">
+      <thead class="table-light">
+        <tr>
+          <th>#</th>
+          <th>Tanggal Masuk</th>
+          <th>Nama Barang</th>
+          <th>Jumlah Barang</th>
+          <th>Aksi</th>
+        </tr>
       </thead>
       <tbody>
       </tbody>
     </table>
-          
 
-    <div class="d-flex justify-content-center">
-      <img src="loader.gif" style="width: 1em; display: block" id="loader">
+    <div class="text-center">
+      <img src="loader.gif" style="width: 2em; display: none" id="loader">
     </div>
+  </div>
 
-    <style>
-      table {
-        width: 50%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-      }
-
-      th,
-      td {
-        padding: 10px;
-        border: 2px solid skyblue;
-        text-align: justify;
-      }
-
-      th {
-        background-color: blue;
-      }
-
-      tr:hover {
-        background-color: white;
-      }
-
-      .stack-up {
-        display: flex;
-        flex-direction: paragraf;
-        align-items: flex-end;
-      }
-    </style>
-
-
-    <script type="module">
-      import { ambilDaftarBarang, ubahBarang, hapusBarang } from './main.js';
-
-      $(document).ready(async function() {
-        let elemenDaftar = $("#barang > tbody");
-        let daftarBarang = await ambilDaftarBarang();
-        let nomor = 1;
-
-        daftarBarang.forEach((data) => {
-          elemenDaftar.append(
-            '<tr>' +
-            '<th>' + nomor + '</th>' +
-            '<td>' + data.tanggalMasuk + '</td>' +
-            '<td>' + data.namaBarang + '</td>' +
-            '<td>' + data.jumlahBarang + '</td>' +
-            '<td class="stack-up">' +
-            ' <a href="#" class="btn btn-warning link-ubah"  data="' +
-            data.id +
-            '">ubah</a> ' +
-            ' <button class="btn btn-danger tombol-hapus" data="' +
-            data.id +
-            '">Hapus</button>' + '</td>' +
-            '</tr>'
-          );
-          nomor = nomor + 1;
-        });
-
-        $('.tombol-hapus').click(async function() {
-          await hapusBarang($(this).attr('data'));
-          location.reload();
-        })
-
-        $('.link-ubah').click(async function() {
-          window.location.replace('ubah-pkl.html?docId=' + $(this).attr('data'));
-        })
-
-        $('#loader').hide();
-
-
-
-      });
-    </script>
-
-    <footer class="py-3 bg-dark-subtle mt-auto">
-      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-
-      </ul>
-      <p class="text-center text-body-secondary">&copy; SMK PLUS INSAN CEMERLANG 2024
-        # PT.KAF GROUP INDONESIA
-        # KAF FRAID CHIKEN </p>
-    </footer>
-
-  </body>
+  <footer class="py-4 bg-dark text-light text-center mt-5">
+    <div class="container">
+      <p class="mb-0">&copy; 2024 SMK Plus Insan Cemerlang | PT. KAF Group Indonesia</p>
+    </div>
+  </footer>
+</body>
 
 </html>
